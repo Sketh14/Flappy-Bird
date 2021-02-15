@@ -67,7 +67,6 @@
     <Compile Include="Assets\Scripts\MainScript.cs" />
     <Compile Include="Assets\Scripts\PipeController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\SaveSystem1.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/Documents/Projcts/Unity/Flappy Bird/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

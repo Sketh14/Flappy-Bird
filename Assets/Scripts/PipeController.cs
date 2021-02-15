@@ -81,6 +81,7 @@ public class PipeController : MonoBehaviour
         else
         {
             speedOfPipes += changeValue;
+            GameManager.Instance.mainScript.pipeSpeed = speedOfPipes;
         }
     }
 

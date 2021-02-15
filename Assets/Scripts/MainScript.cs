@@ -15,6 +15,9 @@ public class MainScript : MonoBehaviour
     public Text highScore;
     public Transform coinContainer;
     public Transform scoreContainer;
+    public AudioClip[] audioClips;
+    public Transform[] bckgrndImages;
+    public float pipeSpeed = 0.025f;                              //to increase bckgrnd speed also
     //public float[] pipeToggle = new float[2] { 4f, 0.025f };
     //public bool changeStats = false;
 
@@ -49,6 +52,21 @@ public class MainScript : MonoBehaviour
                 PauseGame();
             }
             */
+        }
+
+        //toggle bckgrndBelow to other end if one has reached end position
+        {
+            if (gameStarted)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    bckgrndImages[i].Translate(new Vector3(-pipeSpeed, 0f, 0f));
+                    if (bckgrndImages[i].localPosition.x < -16.52f)
+                    {
+                        bckgrndImages[i].localPosition = new Vector3(16.93f, -3.7f, 2.1f);
+                    }
+                }
+            }
         }
 
         //increase difficulty
@@ -142,6 +160,12 @@ public class MainScript : MonoBehaviour
         }
     }
 
+    public void ButtonMakeSound()                    //play clip when any button is clicked
+    {
+        //transform.GetComponent<AudioSource>().volume = 1f;
+        transform.GetComponent<AudioSource>().PlayOneShot(audioClips[1]);
+    }
+
     public void MainMenu()
     {
         //call save script before loading Main Menu
@@ -211,7 +235,10 @@ public class MainScript : MonoBehaviour
     }
 
     public void GameOver()
-    {
+    {                   
+        //set volume, if pause was pressed, as volume will be 0.5f   //not needed
+        //transform.GetComponent<AudioSource>().volume = 1f;
+        transform.GetComponent<AudioSource>().PlayOneShot(audioClips[3]);          //play game over clip
         gameStarted = false;
         tempCountDown = 3;
         scoreToDisplay.enabled = false; 
@@ -260,6 +287,7 @@ public class MainScript : MonoBehaviour
 
     public void UpdateScore(int score)                    //Update score if collected
     {
+        transform.GetComponent<AudioSource>().PlayOneShot(audioClips[2]);
         scoreOfPlayer += score;
         scoreToDisplay.text = scoreOfPlayer.ToString();
         //Debug.Log("Point Collected : " + scoreOfPlayer);
@@ -292,11 +320,14 @@ public class MainScript : MonoBehaviour
             if (countDown.text.Length != 1)
             {
                 getReady.gameObject.SetActive(false);
+                transform.GetComponent<AudioSource>().volume = 0.5f;
+                transform.GetComponent<AudioSource>().PlayOneShot(audioClips[0]); 
             }
             countDown.text = n.ToString();
             if (n == 0)
             {
                 yield return new WaitForSeconds(0.3f);
+                transform.GetComponent<AudioSource>().volume = 1f;
                 //countDown.gameObject.SetActive(false);
                 countDown.text = "";
                 scoreOfPlayer = 0;

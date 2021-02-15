@@ -11,7 +11,7 @@ public static class SaveSystem1
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/Flappy_Bird.kt";
-        //Debug.Log("Path Created : " + path);
+        Debug.Log("Path Created : " + path);
         FileStream stream = new FileStream(path, FileMode.OpenOrCreate); 
 
         SaveData1 save = new SaveData1();
